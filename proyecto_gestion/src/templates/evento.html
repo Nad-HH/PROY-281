@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<h2 class=" mx-auto text-center text-success ">EVENTOS ACADÉMICOS</h2>
+
+    <div class="row w-75 mx-auto  servicio-fila">
+        {% for evento in eventos_acad %}
+        <div class="col-md-4">
+            <div class="card ">
+                <img class="card-img-top h-sm-100 h-md-200 h-lg-300" src="/img/{{ evento[2] }}" alt="Title">
+                <div class="card-body">
+                    <h4 class="card-title">{{ evento[5] }}</h4>
+                    <p class="card-text">
+                        {{ evento[6] }}
+                        <br>
+                        <button class="btn btn-success btn-sm" id="btn-edit{{evento[0]}}" data-bs-toggle="modal" data-bs-target="#modal{{evento[0]}}">
+                            VER MAS
+                        </button>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal{{evento[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">INFORMACIÒN DE EVENTO</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img class="card-img-top h-sm-100 h-md-200 h-lg-300" src="/img/{{ evento[2] }}" alt="Title">
+                            </div>
+                            <div class="col-md-6">
+                                <p>TITULO: {{ evento[5] }}</p>
+                                <p>DESCRIPCIÓN: {{ evento[6] }}</p>
+                                <p>TIPO: {{ evento[1] }}</p>
+                                <p>AREA: {{ evento[7] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        
+    </div>
+
+  
+<br>
+{% endblock %}

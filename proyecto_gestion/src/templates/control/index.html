@@ -1,0 +1,32 @@
+{% extends 'control/base.html' %}
+
+
+{% block body %}
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold">Bienvenido <strong>{{ session["usuario"] }}</strong> al menú de control del sitio web</h1>
+      <p class="col-md-8 fs-4"> Aqui puede realizar las siguientes acciones: </p>
+      
+      <p class="lead text-center">
+        <br>
+        <a class="btn btn-secondary btn-lg " href="gestion_eventos" role="button">Gestionar los Eventos</a>
+        <br>
+        <a class="btn btn-secondary btn-lg mt-3" href="ambientes" role="button">Gestionar los Ambientes</a>
+        <br>
+        <a class="btn btn-secondary btn-lg mt-3" href="gestion_reservas" role="button">Gestionar de Reservas</a>
+        <br>
+        <a class="btn btn-secondary btn-lg mt-3" href="gestion_inscripciones" role="button">Gestionar las Inscripciones</a>
+
+      </p>
+     
+    </div>
+  </div>
+
+
+{% endblock %}

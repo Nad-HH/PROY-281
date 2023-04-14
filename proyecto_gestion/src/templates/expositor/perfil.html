@@ -1,0 +1,187 @@
+{% extends 'expositor/base.html' %}
+
+
+{% block body %}
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<section style="background-color: #eee;">
+    {% if mensaje%}
+             
+    <div class="alert alert-danger" role="alert">
+      <strong> {{mensaje}}</strong> 
+    </div>
+  {% endif%}
+  {% if mensaje2%}
+             
+    <div class="alert alert-success" role="alert">
+      <strong> {{mensaje2}}</strong> 
+    </div>
+  {% endif%}
+<div class="container">
+<div class="row">
+    <div class="col-lg-4">
+      <div class="card mb-4">
+        
+        <div class="card-body text-center">
+
+          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+            class="rounded-circle img-fluid" style="width: 150px;">
+          <h5 class="my-3"> Usuario: {{resultado.perfil.9 }}</h5>
+          <p class="text-muted mb-1">Id de usuario: {{resultado.perfil.0 }}</p>
+
+        </div>
+       
+      </div>
+      
+
+    </div>
+
+    <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Nombre Completo:</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{resultado.perfil.6 }} {{resultado.perfil.7 }} {{resultado.perfil.5 }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{resultado.perfil.4 }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Celular</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{resultado.perfil.10 }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Fecha Nacimiento</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{resultado.perfil.8 }}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">CI</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{resultado.perfil.2 }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-success btn-sm" id="btn-edit{{resultado.perfil.0 }}" data-bs-toggle="modal" data-bs-target="#modaP{{resultado.perfil.0 }}">
+            Editar Datos del Perfil
+        </button>
+
+        <button class="btn btn-success btn-sm" id="btn-edit{{resultado.perfil.0 }}" data-bs-toggle="modal" data-bs-target="#modaC{{resultado.perfil.0 }}">
+            Cambiar Contraseña
+        </button>
+    </div>
+    
+</div>
+</div>
+</section>
+
+ <!-- Modal -->
+ <div class="modal fade" id="modaP{{resultado.perfil.0 }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Perfil</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="/expositor/perfil/editar/{{resultado.perfil.0 }}" method="POST" enctype="multipart/form-data">
+                
+
+                    <label for="txtusuario" class="form-label">Usuario:</label>
+                    <input type="text"
+                        class="form-control" name="txtusuario" id="txtusuario" value="{{resultado.perfil.9 }}">
+                
+               
+                    <label for="txtappat" class="form-label">Apellido Paterno:</label>
+                    <input type="text"
+                        class="form-control" name="txtappat" id="txtappat" value="{{resultado.perfil.6 }}">
+
+                    <label for="txtapmat" class="form-label">Apellido Materno:</label>
+                    <input type="text"
+                        class="form-control" name="txtapmat" id="txtapmat" value="{{resultado.perfil.7 }}">
+                
+                    <label for="txtnom" class="form-label">Nombre:</label>
+                    <input type="text"
+                        class="form-control" name="txtnom" id="txtnom" value="{{resultado.perfil.5 }}">
+                
+                    <label for="txtemail" class="form-label">Email:</label>
+                    <input type="text"
+                        class="form-control" name="txtemail" id="txtemail" value="{{resultado.perfil.4 }}">
+                
+                    <label for="txtcel" class="form-label">Celular:</label>
+                    <input type="text"
+                        class="form-control" name="txtcel" id="txtcel" value="{{resultado.perfil.10 }}">
+                
+                    <label for="txtci" class="form-label">CI:</label>
+                    <input type="text"
+                        class="form-control" name="txtci" id="txtci" value="{{resultado.perfil.2 }}">
+                
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+         </form>
+    </div>
+    </div>
+</div>
+
+
+ <!-- Modal -->
+ <div class="modal fade" id="modaC{{resultado.perfil.0 }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Perfil</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="/expositor/perfil/editarPass/{{resultado.perfil.0 }}" method="POST" enctype="multipart/form-data">
+                
+
+                    <label for="txtpass" class="form-label">Ingresa contraseña anterior:</label>
+                    <input type="text"
+                        class="form-control" name="txtpass" id="txtpass" >
+                
+               
+                    <label for="txtpassnueva" class="form-label">Nueva Contraseña:</label>
+                    <input type="text"
+                        class="form-control" name="txtpassnueva" id="txtpassnueva" >
+
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+         </form>
+    </div>
+    </div>
+</div>
+{% endblock %}

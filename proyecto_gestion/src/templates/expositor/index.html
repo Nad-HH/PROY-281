@@ -1,0 +1,98 @@
+{% extends 'expositor/base.html' %}
+
+
+{% block body %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+    <h1 class="display-5 fw-bold">Bienvenido Expositor <strong>{{ session["usuario"] }}</strong> </h1>
+    <br>
+    
+    <div class="row">
+    <div class="col-md-3">
+        <h5>Agregar repositorio: </h5>
+        <div class="card">
+            <div class="card-header">
+                Agragar Material al Evento
+            </div>
+            <div class="card-body">
+                <form action="/control/gestion_eventos/guardar" method="post" enctype="multipart/form-data">
+
+                    <div class="mb-3">
+                        <label for="txtidevento" class="form-label">Ingresar Id Evento:</label>
+                        <input type="text"
+                            class="form-control" name="txtidevento" id="txtidevento" aria-describedby="helpId" placeholder="Escriba el ID del evento">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="txtidambiente" class="form-label">Tipo de Documento:</label>
+                        <input type="text"
+                            class="form-control" name="txtidambiente" id="txtidambiente" aria-describedby="helpId" placeholder="Pdf, ppt, video, ...">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="txtidambiente" class="form-label">Título del Documento:</label>
+                        <input type="text"
+                            class="form-control" name="txtidambiente" id="txtidambiente" aria-describedby="helpId" placeholder="Ingresar título">
+                    </div>
+                    <div class="mb-3">
+                        <label for="txtidambiente" class="form-label">Link:</label>
+                        <input type="text"
+                            class="form-control" name="txtidambiente" id="txtidambiente" aria-describedby="helpId" placeholder="Ingresar Link de Descarga (drive)">
+                    </div>
+
+                    
+
+                    <button type="submit" class="btn btn-success">Agregar</button>      
+
+                </form>
+            </div>
+            <div class="card-footer text-muted">
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-9">
+        <h5>Eventos asignados: </h5>
+      <div class="table-responsive">
+        <table class="table table-success" >
+            <thead >
+                <tr>
+                    <th scope="col">ID Evento</th>
+                    <th scope="col">Datos del Evento</th>
+                    <th scope="col">Repositorio</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="">
+                    <td>
+
+                    </td>
+                    <td>
+                     
+                    </td>
+
+                    <td>
+                       
+ 
+
+                    </td>
+                    
+
+                </tr>
+
+            </tbody>
+        </table>
+      </div>
+    </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

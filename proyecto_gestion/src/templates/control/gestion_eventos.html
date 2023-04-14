@@ -1,0 +1,142 @@
+{% extends 'control/base.html' %}
+
+
+{% block body %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<h2 class="text-center text-secondary">GESTION DE LOS EVENTOS ACADÉMICOS</h2>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    Asignar ambiente y Horario
+                </div>
+                <div class="card-body">
+                    <form action="/control/gestion_eventos/guardar" method="post" enctype="multipart/form-data">
+
+                        <div class="mb-3">
+                            <label for="txtidevento" class="form-label">Ingresar Id Evento:</label>
+                            <input type="text"
+                                class="form-control" name="txtidevento" id="txtidevento" aria-describedby="helpId" placeholder="Escriba el ID del evento">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="txtidambiente" class="form-label">Asignar un Ambiente:</label>
+                            <input type="text"
+                                class="form-control" name="txtidambiente" id="txtidambiente" aria-describedby="helpId" placeholder="Escriba el ID del Ambietne">
+                        </div>
+
+                        <h5 class="text-center ">Asignar Horario: </h5>
+
+                        <div class="mb-3">
+                            <label for="txtfecha" class="form-label">Fecha:</label>
+                            <input type="date"
+                                class="form-control" name="txtfecha" id="txtfecha" aria-describedby="helpId" placeholder="Ej: 45 ">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="txthora_i" class="form-label">Hora de Inicio:</label>
+                            <input type="time"
+                                class="form-control" name="txthora_i" id="txthora_i" aria-describedby="helpId" placeholder="Ej: 345">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="txthora_f" class="form-label">Hora de Finalización:</label>
+                            <input type="time"
+                                class="form-control" name="txthora_f" id="txthora_f" aria-describedby="helpId" placeholder="Ej: 345">
+                        </div>
+
+
+                        <button type="submit" class="btn btn-success">Agregar</button>      
+
+                    </form>
+                </div>
+                <div class="card-footer text-muted">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="table-responsive">
+                <table class="table table-success" >
+                    <thead >
+                        <tr>
+                            <th scope="col">ID Evento</th>
+                            <th scope="col">Datos del Evento</th>
+                            <th scope="col">Ambientes Asignados</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for evento in eventos %}
+                        <tr class="">
+                            <td>{{evento[0]}}</td>
+                            <td>
+                                Titulo: {{evento[5]}}
+                                <br>
+                                Tipo: {{evento[1]}}
+                                <br>
+                                Capacidad Maxima: {{evento[3]}}
+                                <br>
+                                Precio: {{evento[4]}}
+                                <br>
+                                Descripcion: {{evento[6]}}
+                                <br>
+                                Area: {{evento[7]}}
+                                <br>
+                                Fecha: {{evento[8]}}
+                            </td>
+ 
+                            <td>
+                                {% for hora in horarios%}
+
+                                    {% if hora[1] == evento[0] %}
+                                    En el Ambiente: {{hora[0]}}
+                                    <br>
+                                    Ubicación del ambiente: {{hora[4]}}
+                                    <br>
+                                    Tipo de Ambiente: {{hora[3]}}
+                                    <br>
+                                    Fecha: {{hora[5]}} 
+                                    <br>
+                                    Horario: {{hora[6]}} - {{hora[7]}}
+                                    <br>
+                                    <form action="/control/gestion_eventos/borrar" method="post">
+                                        <input value="{{hora[2]}}" type="hidden" name="txtID" id="txtID">
+                                        <button type="submit" class="btn btn-danger">
+                                            Quitar
+                                        </button>
+                                    </form>
+                                    {%endif%}
+                                    
+                                    <br>   
+                                {%endfor%}
+
+                            </td>
+                            
+   
+                        </tr>
+                        
+                        
+
+
+
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+        
+    </div>
+</div>
+
+
+
+{% endblock %}

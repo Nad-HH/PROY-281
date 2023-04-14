@@ -1,0 +1,233 @@
+{% extends 'control/base.html' %}
+
+
+{% block body %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<h2 class="text-center text-secondary">GESTION DE LOS AMBIENTES </h2>
+<br>
+<div class="container"> 
+    <div class="row">
+        <div class="col-md-4">
+            
+            <form action="/control/ambientes/guardar_amb" method="post" enctype="multipart/form-data">
+                <h4 class="text-center text-secondary">Ambiente: </h4>
+                <div class="mb-3">
+                    <label for="txttipo" class="form-label">Tipo:</label>
+                    <input type="text"
+                        class="form-control" name="txttipo" id="txttipo" aria-describedby="helpId" >
+                </div>
+
+                <div class="mb-3">
+                    <label for="txtcapmax" class="form-label">Capacidad Máxima:</label>
+                    <input type="text"
+                        class="form-control" name="txtcapmax" id="txtcapmax" aria-describedby="helpId" >
+                </div>
+
+                <div class="mb-3">
+                    <label for="txtubic" class="form-label">Ubicacion:</label>
+                    <input type="text"
+                        class="form-control" name="txtubic" id="txtubic" aria-describedby="helpId" >
+                </div>
+
+                
+                <button type="submit" class="btn btn-success">Agregar</button>      
+
+            </form>
+                
+        </div>
+        <div class="col-md-4">
+            <form action="/control/ambientes/guardar_eq_el" method="post" enctype="multipart/form-data">
+                
+                <h4 class="text-center text-secondary">Asignar Equipo Electrónico: </h4>
+
+                <div class="mb-3">
+                    <label for="txtid" class="form-label">Id Ambiente:</label>
+                    <input type="text"
+                        class="form-control" name="txtid" id="txtid" aria-describedby="helpId" >
+                </div>
+
+                <div class="mb-3">
+                    <label for="txttipoeq" class="form-label">Tipo:</label>
+                    <input type="text"
+                        class="form-control" name="txttipoeq" id="txttipoeq" aria-describedby="helpId" >
+                </div>
+
+                <div class="mb-3">
+                    <label for="txtdesc" class="form-label">Descripcion:</label>
+                    <input type="text"
+                        class="form-control" name="txtdesc" id="txtdesc" aria-describedby="helpId" >
+                </div>
+
+                <div class="mb-3">
+                    <label for="txtcant" class="form-label">Cantidad:</label>
+                    <input type="text"
+                        class="form-control" name="txtcant" id="txtcant" aria-describedby="helpId" >
+                </div>
+                <button type="submit" class="btn btn-success">Agregar</button>      
+
+            </form>
+        </div>
+        <div class="col-md-4">
+            <form action="/control/ambientes/guardar_rud" method="post" enctype="multipart/form-data">
+                
+                <h4 class="text-center text-secondary">Asignar equipo Rudimentario: </h4>
+
+                <div class="mb-3">
+                    <label for="txtid" class="form-label">Id Ambiente:</label>
+                    <input type="text"
+                        class="form-control" name="txtid" id="txtid" aria-describedby="helpId" >
+                </div>
+
+                <div class="mb-3">
+                    <label for="txttipoeq" class="form-label">Tipo:</label>
+                    <input type="text"
+                        class="form-control" name="txttipoeq" id="txttipoeq" aria-describedby="helpId" >
+                </div>
+
+                <div class="mb-3">
+                    <label for="txtdesc" class="form-label">Descripcion:</label>
+                    <input type="text"
+                        class="form-control" name="txtdesc" id="txtdesc" aria-describedby="helpId" >
+                </div>
+
+                <div class="mb-3">
+                    <label for="txtcant" class="form-label">Cantidad:</label>
+                    <input type="text"
+                        class="form-control" name="txtcant" id="txtcant" aria-describedby="helpId" >
+                </div>
+                
+                <button type="submit" class="btn btn-success">Agregar</button>      
+
+            </form>
+        </div>
+
+    </div>
+</div>
+<br>
+<div class="container"> 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-success" >
+                    {% for evento in eventos %}
+                    <thead >
+                        <tr>
+                            <th scope="col">Id Ambiente</th>
+                            <th scope="col">Tipo</th>
+                            <th scope="col">Capacidad Max</th>
+                            <th scope="col">Ubicacion</th>
+                            <th scope="col">Equipo Electrónico</th>
+                            <th scope="col">Equipo Rudimentario</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr class="">
+                            <td>{{evento[0]}}</td>
+                            <td>{{evento[1]}}</td>
+                            <td>{{evento[2]}}</td>
+                            <td>{{evento[3]}}</td>
+                            
+                            <td>
+                                {% for eq in electrico %}
+                                    {% if eq[0] == evento[0]%}
+                                    Tipo: {{eq[2]}} <br>
+                                    Descripcion: {{eq[3]}} <br>
+                                    Cantidad: {{eq[4]}} 
+                                    <form action="/control/ambientes/borrar_eq" method="post">
+                                        <input value="{{eq[1]}}" type="hidden" name="txtID" id="txtID">
+                                        <button type="submit" class="btn btn-danger">
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                    <br>
+                                    <br>
+                                    {%endif%}
+                                
+                                {%endfor%}
+                            </td>
+                            
+                            <td>
+                                {% for eq in equipo_rud %}
+                                    {% if eq[0] == evento[0]%}
+                                    Tipo: {{eq[2]}} <br>
+                                    Descripcion: {{eq[3]}} <br>
+                                    Cantidad: {{eq[4]}} 
+                                    <form action="/control/ambientes/borrar_rud" method="post">
+                                        <input value="{{eq[1]}}" type="hidden" name="txtID" id="txtID">
+                                        <button type="submit" class="btn btn-danger">
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                    <br>
+                                    <br>
+                                    {%endif%}
+                                
+                                {%endfor%}
+                            </td>
+                            
+                            <td>
+                                <button class="btn btn-primary btn-sm" id="btn-edit{{evento[0]}}" data-bs-toggle="modal" data-bs-target="#modal{{evento[0]}}">
+                                    Editar
+                                </button>
+                                <form action="/control/ambientes/borrar" method="post">
+                                    <input value="{{evento[0]}}" type="hidden" name="txtID" id="txtID">
+                                    <button type="submit" class="btn btn-danger">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="modal{{evento[0]}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Editar Ambiente</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/control/ambientes/editar/{{evento[0]}}" method="POST" enctype="multipart/form-data">
+                                    
+
+                                        <label for="txttipo" class="form-label">Tipo:</label>
+                                        <input type="text"
+                                            class="form-control" name="txttipo" id="txttipo" value="{{evento[1]}}">
+                                    
+                                   
+                                        <label for="txtcapmax" class="form-label">Capacidad Max:</label>
+                                        <input type="text"
+                                            class="form-control" name="txtcapmax" id="txtcapmax" value="{{evento[2]}}">
+                                    
+                                            
+                                        <label for="txtubi" class="form-label">Ubicación:</label>
+                                        <input type="text"
+                                                class="form-control" name="txtubi" id="txtubi" value="{{evento[3]}}">
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                </div>
+                             </form>
+                        </div>
+                        </div>
+                    </div>
+                    {%endfor%}
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
