@@ -1,0 +1,195 @@
+{% extends 'participante/base.html' %}
+
+{% block customCSS %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/formulario.css')}}">
+<link rel="stylesheet" href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> 	
+<link rel="stylesheet" href="css/estilos.css">
+{% endblock %}
+
+{% block body %}
+{% from "participante/_formhelpers.html" import render_field %}
+<body>
+
+    <main>
+		<form method="POST" action="" class="formulario" id="formulario">
+			<!-- Grupo: Usuario -->
+			<div class="form-group" >
+				{{render_field(form.usuario, class_="form-control")}}
+			</div>
+
+
+			<!-- Grupo: Nombre -->
+			<div class="form-group" >
+				{{render_field(form.nombre, class_="form-control")}}
+            </div>
+
+            <!-- Grupo: Paterno -->
+            <div class="form-group" >
+				{{render_field(form.paterno, class_="form-control")}}
+            </div>
+
+            <!-- Grupo: Materno -->
+			<div class="form-group">
+				{{render_field(form.materno, class_="form-control")}}
+			</div>
+            
+            
+			<!-- Grupo: Contraseña -->
+			<div class="form-group">
+				{{render_field(form.password, class_="form-control")}}
+			</div>
+
+			<!-- Grupo: Contraseña 2 -->
+			<div class="form-group">
+				{{render_field(form.confirm, class_="form-control")}}
+			</div>
+
+			<!-- Grupo: Correo Electronico -->
+			<div class="form-group">
+				{{render_field(form.email, class_="form-control")}}
+			</div>
+
+			<!-- Grupo: Teléfono -->
+			<div class="form-group">
+				{{render_field(form.telefono, class_="form-control")}}
+			</div>
+
+			<!-- Grupo: Terminos y Condiciones 
+			<div class="formulario__grupo" id="grupo__terminos">
+				<label class="formulario__label">
+					<input class="formulario__checkbox" type="checkbox" name="terminos" id="terminos">
+					Acepto los Terminos y Condiciones
+				</label>
+			</div>
+        -->
+			<div class="formulario__grupo formulario__grupo-btn-enviar">
+				<button type="submit" class="formulario__btn">Enviar</button>
+				<p class="formulario__mensaje-exito" id="formulario__mensaje-exito">Formulario enviado exitosamente!</p>
+			</div>
+		</form>
+	</main>
+<!--
+   <script>
+
+        const formulario = document.getElementById('formulario');
+        const inputs = document.querySelectorAll('#formulario input');
+
+        const expresiones = {
+            usuario: /^[a-zA-Z0-9\_\-]{4,16}$/, // Letras, numeros, guion y guion_bajo
+            nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
+            paterno: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
+            materno: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.
+            password: /^.{4,12}$/, // 4 a 12 digitos.
+            correo: /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
+            telefono: /^\d{7,14}$/ // 7 a 14 numeros.
+        }
+
+        const campos = {
+            usuario: false,
+            nombre: false,
+            paterno: false,
+            materno: false,
+            password: false,
+            correo: false,
+            telefono: false
+        }
+
+        const validarFormulario = (e) => {
+            switch (e.target.name) {
+                case "usuario":
+                    validarCampo(expresiones.usuario, e.target, 'usuario');
+                break;
+                case "nombre":
+                    validarCampo(expresiones.nombre, e.target, 'nombre');
+                break;
+                case "paterno":
+                    validarCampo(expresiones.paterno, e.target, 'paterno');
+                break;
+                case "materno":
+                    validarCampo(expresiones.materno, e.target, 'materno');
+                break;
+                case "password":
+                    validarCampo(expresiones.password, e.target, 'password');
+                    validarPassword2();
+                break;
+                case "password2":
+                    validarPassword2();
+                break;
+                case "correo":
+                    validarCampo(expresiones.correo, e.target, 'correo');
+                break;
+                case "telefono":
+                    validarCampo(expresiones.telefono, e.target, 'telefono');
+                break;
+            }
+        }
+
+        const validarCampo = (expresion, input, campo) => {
+            if(expresion.test(input.value)){
+                document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-incorrecto');
+                document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-correcto');
+                document.querySelector(`#grupo__${campo} i`).classList.add('fa-check-circle');
+                document.querySelector(`#grupo__${campo} i`).classList.remove('fa-times-circle');
+                document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.remove('formulario__input-error-activo');
+                campos[campo] = true;
+            } else {
+                document.getElementById(`grupo__${campo}`).classList.add('formulario__grupo-incorrecto');
+                document.getElementById(`grupo__${campo}`).classList.remove('formulario__grupo-correcto');
+                document.querySelector(`#grupo__${campo} i`).classList.add('fa-times-circle');
+                document.querySelector(`#grupo__${campo} i`).classList.remove('fa-check-circle');
+                document.querySelector(`#grupo__${campo} .formulario__input-error`).classList.add('formulario__input-error-activo');
+                campos[campo] = false;
+            }
+        }
+
+        const validarPassword2 = () => {
+            const inputPassword1 = document.getElementById('password');
+            const inputPassword2 = document.getElementById('password2');
+
+            if(inputPassword1.value !== inputPassword2.value){
+                document.getElementById(`grupo__password2`).classList.add('formulario__grupo-incorrecto');
+                document.getElementById(`grupo__password2`).classList.remove('formulario__grupo-correcto');
+                document.querySelector(`#grupo__password2 i`).classList.add('fa-times-circle');
+                document.querySelector(`#grupo__password2 i`).classList.remove('fa-check-circle');
+                document.querySelector(`#grupo__password2 .formulario__input-error`).classList.add('formulario__input-error-activo');
+                campos['password'] = false;
+            } else {
+                document.getElementById(`grupo__password2`).classList.remove('formulario__grupo-incorrecto');
+                document.getElementById(`grupo__password2`).classList.add('formulario__grupo-correcto');
+                document.querySelector(`#grupo__password2 i`).classList.remove('fa-times-circle');
+                document.querySelector(`#grupo__password2 i`).classList.add('fa-check-circle');
+                document.querySelector(`#grupo__password2 .formulario__input-error`).classList.remove('formulario__input-error-activo');
+                campos['password'] = true;
+            }
+        }
+
+        inputs.forEach((input) => {
+            input.addEventListener('keyup', validarFormulario);
+            input.addEventListener('blur', validarFormulario);
+        });
+
+        formulario.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const terminos = document.getElementById('terminos');
+            if(campos.usuario && campos.nombre && campos.paterno && campos.materno && campos.password && campos.correo && campos.telefono && terminos.checked ){
+                formulario.reset();
+
+                document.getElementById('formulario__mensaje-exito').classList.add('formulario__mensaje-exito-activo');
+                setTimeout(() => {
+                    document.getElementById('formulario__mensaje-exito').classList.remove('formulario__mensaje-exito-activo');
+                }, 5000);
+
+                document.querySelectorAll('.formulario__grupo-correcto').forEach((icono) => {
+                    icono.classList.remove('formulario__grupo-correcto');
+                });
+            } else {
+                document.getElementById('formulario__mensaje').classList.add('formulario__mensaje-activo');
+            }
+        });
+
+    </script>
+   <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>-->
+</body>  
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'participante/base.html' %}
+
+{% block customCSS %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/verificar.css')}}">
+
+{% endblock %}
+
+{% block body %}
+
+{% from "participante/_formhelpers.html" import render_field %}
+
+<div class="login-page">
+    <div class="form">
+      <form class="login-form" action="" method="POST">
+        <label> INGRESA EL CODIGO</label>
+        <input id="codigo" name="codigo" type="text" placeholder="— — — — — —"/>
+        <button>login</button>
+      </form>
+    </div>
+  </div>
+<script>
+
+$('.message a').click(function(){
+   $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+});
+
+</script>
+  
+{% endblock %}

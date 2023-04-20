@@ -1,0 +1,55 @@
+{% extends 'participante/base.html' %}
+
+{% block customCSS %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css')}}">
+
+{% endblock %}
+
+{% block body %}
+{% from "participante/_formhelpers.html" import render_field %}
+
+<body id="myId"> 
+    <section class="register-account"> 
+          <div class="signform">      
+            <div class="left"><a href="formulario" style="float:right;margin-right:35px;font-size: 0.9em;" class="bts-a">Don't have an account? Sign up!</a>
+              <div class="bts">
+                <a href="#" class="fblogin social"><i class="fa fa-facebook"></i><span>Sign in with Facebook</span></a>
+                 <a href="#" class="twlogin social"><i class="fa fa-twitter"></i><span>Sign in with Twitter</span></a>
+                <a href="#" class="gplogin social"><i class="fa fa-google-plus"></i><span>Sign in with Google</span></a>             
+              </div>
+            </div>
+            <div class="right">
+                <div class="headit">
+                  <h4>Login To Your Account</h4>
+                </div>
+                <form action="" method="POST">
+  
+                    <div class="form-group">
+                        <label>Usuario</label>
+                        <input type="text" name="usuario" class="form-control" value="{{request.form.usuario}}">
+                    </div>
+            
+                    <!-- Grupo: Contraseña -->
+                    <div class="form-group">
+                        <label>Contraseña</label>
+                        <input type="password" name="password" class="form-control" value="{{request.form.password}}">
+                    </div>
+
+                    <div class="pt-1 mb-4">
+                      <button class="btn btn-dark btn-lg btn-block" type="submit">Login</button>
+                    </div>
+                    <!-- 
+                    <a class="small text-muted" href="#!">Forgot password?</a>
+                    <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account? <a href="#!"
+                        style="color: #393f81;">Register here</a></p>
+                    <a href="#!" class="small text-muted">Terms of use.</a>
+                    <a href="#!" class="small text-muted">Privacy policy</a>
+                  
+                -->
+                   </form>  
+            </div>       
+          </div>
+    </section>
+</body>
+{% endblock %}
